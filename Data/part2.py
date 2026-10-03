@@ -155,3 +155,27 @@ print("\n" + "=" * 50)
 print("8. ТОП-3 клієнтів за загальною сумою покупок")
 print("=" * 50)
 print(top_3_customers)
+
+
+# Task 2
+orders_by_date = df.groupby("OrderDate").size()
+plt.figure(figsize=(10, 5))
+plt.plot(orders_by_date.index, orders_by_date.values, marker="o")
+plt.title("Число замовлень по датах")
+plt.xlabel("Дата замовлення")
+plt.ylabel("Кількість замовлень")
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+
+revenue_by_category = df.groupby("Category")["TotalAmount"].sum()
+plt.figure(figsize=(8, 5))
+plt.bar(revenue_by_category.index, revenue_by_category.values)
+plt.title("Розподіл доходів за категоріями")
+plt.xlabel("Категорія")
+plt.ylabel("Дохід")
+plt.tight_layout()
+plt.show()
+
