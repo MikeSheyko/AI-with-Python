@@ -52,51 +52,21 @@ if prediction == 1:
 else:
     print("Student will not be accepted for internship.")
 
-# 7. Дані для графіка
-english = np.linspace(1, 3, 100)
-test_score = np.linspace(
-    df["EntryTestScore"].min(),
-    df["EntryTestScore"].max(),
-    100
-)
-
-English, Score = np.meshgrid(english, test_score)
-
-# Середні значення для інших ознак
-Experience = df["Experience"].mean()
-Grade = df["Grade"].mean()
-Age = df["Age"].mean()
-
-X_graph = pd.DataFrame({
-    "Experience": Experience,
-    "Grade": Grade,
-    "EnglishLevel": English.ravel(),
-    "Age": Age,
-    "EntryTestScore": Score.ravel()
-})
-
-# Розрахунок ймовірності прийняття
-probabilities = model.predict_proba(X_graph)[:, 1]
-Prob = probabilities.reshape(English.shape)
-
-
-# 8. Графік ймовірності
+# 7. Візуалізація результатів моделі
 plt.figure(figsize=(10, 6))
 
-plt.contourf(
-    English,
-    Score,
-    Prob,
-    levels=np.linspace(0, 1, 11),
-    cmap="RdYlGn"
+plt.scatter(
+    X_test["Grade"],
+    X_test["EntryTestScore"],
+    c=Y_pred,
+    cmap="coolwarm",
+    edgecolor="k",
+    s=100
 )
 
-plt.colorbar(label="Probability of acceptance")
-
-plt.xlabel("English Level")
+plt.title("Logistic Regression Predictions")
+plt.xlabel("GPA")
 plt.ylabel("Entry Test Score")
-plt.title("Probability of Internship Acceptance")
-
-plt.xticks([1, 2, 3])
+plt.colorbar(label="Predicted Class")
 plt.grid(True)
 plt.show()
