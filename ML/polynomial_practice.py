@@ -50,11 +50,11 @@ print(f"Найкращий ступінь полінома: {best_degree}")
 
 
 # 4. Будуємо графік
-X_test = np.linspace(X.min(), 140, 500).reshape(-1, 1)
+X_test = np.linspace(X.min(), X.max(), 500).reshape(-1, 1)
 Y_pred = best_model.predict(X_test)
 
 plt.figure(figsize=(10, 6))
-plt.scatter(X, Y, label="Real data", color="blue")
+plt.plot(X, Y, label="Real data", color="blue", marker="o")
 plt.plot(X_test, Y_pred, label=f"Polynomial regression, degree {best_degree}",
          color="red", linestyle="--")
 
