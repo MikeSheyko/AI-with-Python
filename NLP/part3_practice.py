@@ -1,4 +1,5 @@
 import json
+import matplotlib.pyplot as plt
 import pandas as pd
 import nltk
 
@@ -102,3 +103,22 @@ print(df[['Review Text', 'Tokens', 'Stemmed',
           'Lemmatized', 'Polarity', 'Sentiment']].head())
 
 print('\nFiles saved successfully!')
+
+# Графік
+sentiments = ['Positive', 'Neutral', 'Negative']
+counts = [
+    summary['Positive'],
+    summary['Neutral'],
+    summary['Negative']
+]
+
+plt.bar(sentiments, counts)
+plt.title('Sentiment Analysis of Product Reviews')
+plt.xlabel('Sentiment')
+plt.ylabel('Number of Reviews')
+
+for i, count in enumerate(counts):
+    plt.text(i, count, str(count), ha='center', va='bottom')
+
+plt.tight_layout()
+plt.show()
